@@ -23,8 +23,3 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['body']
 
-class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
