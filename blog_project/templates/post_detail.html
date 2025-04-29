@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+{% load static %}
+
 {% block title %}{{ object.title }}{% endblock %}
 {% block content %}
 <h2>{{ object.title }}</h2>
@@ -33,7 +36,7 @@
 <h4>Add a Comment</h4>
 <form method="post" action="">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form |crispy }}
     <button class="btn btn-success" type="submit">Submit Comment</button>
     <a href="{% url 'post_list' %}" class="btn btn-secondary">Back</a>
 </form>

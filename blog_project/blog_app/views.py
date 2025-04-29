@@ -84,18 +84,18 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'post_new.html'
     fields = ['title', 'content']
-    success_url = reverse_lazy('post_list')  # after create go to post list
+    success_url = reverse_lazy('post_list')  
 
     def form_valid(self, form):
-        form.instance.author = self.request.user  # set the logged-in user as author
+        form.instance.author = self.request.user 
         return super().form_valid(form)
     
 # Update a post (only author can update)
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    template_name = 'post_new.html'
+    template_name = 'post_edit.html'
     fields = ['title', 'content']
-    success_url = reverse_lazy('post_list')  # after update go to post list
+    success_url = reverse_lazy('post_list') 
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -103,18 +103,18 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         post = self.get_object()
-        return self.request.user == post.author  # only author can edit
+        return self.request.user == post.author 
     
 
 # Delete a post (only author can delete)
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'post_delete.html'
-    success_url = reverse_lazy('post_list')  # after delete go to post list
+    success_url = reverse_lazy('post_list') 
 
     def test_func(self):
         post = self.get_object()
-        return self.request.user == post.author  # only author can delete
+        return self.request.user == post.author 
     
     
     

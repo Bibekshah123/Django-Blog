@@ -3,12 +3,11 @@
 
 {% block title %}Create New Blog{% endblock %}
 {% block content %}
-<h2> Create Blog</h2>
-
+<h2> Edit Blog </h2>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form |crispy }}
     <button type="submit">Create Post</button>
-    <a href="{% url 'post_list' %}" class="btn btn-secondary">Back</a>
+    <a href="{% url 'post_detail' post.pk %}" class="btn btn-secondary">Back</a>
 </form>
 {% endblock %}
