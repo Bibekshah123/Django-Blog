@@ -4,7 +4,7 @@
 
 {% block title %}{{ object.title }}{% endblock %}
 {% block content %}
-<h2>{{ object.title }}</h2>
+<h2 class='text-primary'>{{ object.title }}</h2>
 <p>{{ object.content }}</p>
 <small>By {{ object.author.username }} on {{ object.created_at }}</small>
 
@@ -16,8 +16,7 @@
 </div>
 <hr>
 
-<h4>Comments</h4>
-
+<h4 class='text-danger'>Comments</h4>
 {% for comment in comments %}
     <p>
         <strong>
@@ -32,10 +31,9 @@
 {% empty %}
     <p>No comments yet.</p>
 {% endfor %}
-
 <hr>
 
-<h4>Add a Comment</h4>
+<h4 class='text-dark'>Add a Comment</h4>
 <form method="post" action="">
     {% csrf_token %}
     {{ form |crispy }}

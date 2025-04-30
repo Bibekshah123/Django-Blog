@@ -2,14 +2,30 @@
 {% block title %}All Blog{% endblock %}
 {% block content %}
 <h2 class='text-center text-danger'> ALL BLOG </h2>
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for post in posts %}
+            <div class="col">
+                <div class="card h-100 border-dark">
+                    <!-- Image at top -->
+                    <img src="{% if post.image.url %}{{ post.image.url }}{% else %}https://via.placeholder.com/300x180{% endif %}" 
+                         class="card-img-top" 
+                         alt="Post Image" 
+                         style="height: 180px; object-fit: cover;">
 
-{% for post in posts %}
-    <div class="card border-dark mb-3"  >
-        <div class="card-body text-dark">
-            <h4><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h4>
-            <small>By {{ post.author.username }} on {{ post.created_at }}</small>
-        </div>
+                    <!-- Card body -->
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">
+                            <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                        </h5>
+                        <p class="card-text">
+                            <small>By {{ post.author.username }} on {{ post.created_at|date:"M d, Y" }}</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-{% endfor %}
+</div>
 
 {% endblock %}
