@@ -4,41 +4,51 @@
 
 {% block title %}{{ object.title }}{% endblock %}
 {% block content %}
-<h2 class='text-primary'>{{ object.title }}</h2>
-<p>{{ object.content }}</p>
-<small>By {{ object.author.username }} on {{ object.created_at }}</small>
+<div class="container">
+    <h2 class="text-primary text-center mb-4">{{ object.title }}</h2>
 
-<div class ="mt-3 mb-3">
-    {% if user == object.author %}
-        <a class="btn btn-outline-primary" href="{% url 'post_update' object.pk %}">Edit</a>
-        <a class="btn btn-outline-danger" href="{% url 'post_delete' object.pk %}">Delete</a>
-    {% endif %}
+    <div class="text-center mb-4">
+        <img src="{{ object.image.url }}" 
+             alt="Image" 
+             class="img-fluid "
+             style="max-height: 400px; width: 100%; max-width: 700px; object-fit: cover;">
+    </div>
+
+    <p>{{ object.content }}</p>
+    <small class="text-muted">By {{ object.author.username }} on {{ object.created_at|date:"M d, Y" }}</small>
+
+    <div class="mt-3 mb-4">
+        {% if user == object.author %}
+            <a class="btn btn-outline-primary" href="{% url 'post_update' object.pk %}">Edit</a>
+            <a class="btn btn-outline-danger" href="{% url 'post_delete' object.pk %}">Delete</a>
+        {% endif %}
+    </div>
+
+    <hr>
+
+    <h4 class="text-danger">Comments</h4>
+    {% for comment in comments %}
+        <p>
+            <strong>
+                {% if comment.user %}
+                    {{ comment.user.username }}
+                {% else %}
+                    Unknown
+                {% endif %}
+            </strong>: {{ comment.body }}
+        </p>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    <hr>
+
+    <h4 class="text-dark">Add a Comment</h4>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-outline-success" type="submit">Submit Comment</button>
+        <a href="{% url 'post_list' %}" class="btn btn-outline-primary">Back</a>
+    </form>
 </div>
-<hr>
-
-<h4 class='text-danger'>Comments</h4>
-{% for comment in comments %}
-    <p>
-        <strong>
-            {% if comment.user %}
-                {{ comment.user.username }}
-            {% else %}
-                Unknown
-            {% endif %}
-        </strong>: 
-        {{ comment.body }}
-    </p>
-{% empty %}
-    <p>No comments yet.</p>
-{% endfor %}
-<hr>
-
-<h4 class='text-dark'>Add a Comment</h4>
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form |crispy }}
-    <button class="btn btn-outline-success" type="submit">Submit Comment</button>
-    <a href="{% url 'post_list' %}" class="btn btn-outline-primary">Back</a>
-</form>
-
- {% endblock %}
+{% endblock %}

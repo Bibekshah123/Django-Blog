@@ -1,31 +1,42 @@
 {% extends 'base.html' %}
-{% block title %}All Blog{% endblock %}
-{% block content %}
-<h2 class='text-center text-danger'> ALL BLOG </h2>
-<div class="container">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for post in posts %}
-            <div class="col">
-                <div class="card h-100 border-dark">
-                    <!-- Image at top -->
-                    <img src="{% if post.image.url %}{{ post.image.url }}{% else %}https://via.placeholder.com/300x180{% endif %}" 
-                         class="card-img-top" 
-                         alt="Post Image" 
-                         style="height: 180px; object-fit: cover;">
+{% load static %}
 
-                    <!-- Card body -->
-                    <div class="card-body text-dark">
-                        <h5 class="card-title">
-                            <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
-                        </h5>
-                        <p class="card-text">
-                            <small>By {{ post.author.username }} on {{ post.created_at|date:"M d, Y" }}</small>
-                        </p>
-                    </div>
+{% block title %}All Blog{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for post in posts %}
+        {% if forloop.first or forloop.counter0|divisibleby:3 %}
+        <div class="row g-4 mb-3">
+        {% endif %}
+
+        <div class="col-md-4">
+            <div class="card h-100 ">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" 
+                         class="card-img-top" 
+                         alt="Image" 
+                         style="height: 180px; object-fit: cover;">
+                {% else %}
+                    <img src="https://via.placeholder.com/300x180" 
+                         class="card-img-top" 
+                         alt="Placeholder Image" 
+                         style="height: 180px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body text-dark">
+                    <h5 class="card-title">
+                        <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                    </h5>
+                    <p class="card-text">
+                        <small>By {{ post.author.username }} on {{ post.created_at|date:"M d, Y" }}</small>
+                    </p>
                 </div>
             </div>
-        {% endfor %}
-    </div>
-</div>
+        </div>
 
+        {% if forloop.counter|divisibleby:3 or forloop.last %}
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
 {% endblock %}
