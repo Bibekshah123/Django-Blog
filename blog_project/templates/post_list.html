@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% block title %}All Posts{% endblock %}
+{% block title %}All Blog{% endblock %}
 {% block content %}
-<h2>All Blog </h2>
+<h2 class='text-center text-danger'> ALL BLOG </h2>
 
 {% for post in posts %}
-    <div class="card mb-3">
-        <div class="card-body">
+    <div class="card border-dark mb-3"  >
+        <div class="card-body text-dark">
             <h4><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h4>
             <small>By {{ post.author.username }} on {{ post.created_at }}</small>
         </div>
