@@ -12,20 +12,19 @@
 
         <div class="col-md-4">
             <div class="card h-100 ">
-                {% if post.image %}
-                    <img src="{{ post.image.url }}" 
+                <a href="{% url 'post_detail' post.slug %}">
+                    <img src="{% if post.image %}{{ post.image.url }}{% else %}https://via.placeholder.com/300x180{% endif %}" 
                          class="card-img-top" 
-                         alt="Image" 
+                         alt="{{ post.title }}" 
                          style="height: 180px; object-fit: cover;">
-                {% else %}
-                    <img src="https://via.placeholder.com/300x180" 
-                         class="card-img-top" 
-                         alt="Placeholder Image" 
-                         style="height: 180px; object-fit: cover;">
-                {% endif %}
+                </a>
                 <div class="card-body text-dark">
                     <h5 class="card-title">
-                        <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                    {% if post.slug %}
+                        <a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a>
+                    {% else %}
+                        <span class="text-danger">Error: Post has no slug!</span>
+                    {% endif %}
                     </h5>
                     <p class="card-text">
                         <small>By {{ post.author.username }} on {{ post.created_at|date:"M d, Y" }}</small>
