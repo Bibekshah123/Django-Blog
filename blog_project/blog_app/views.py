@@ -52,7 +52,6 @@ class LogoutView(View):
         return redirect('post_list')
 
 
-
 # Blog views
 class PostListView(ListView):
     model = Post
@@ -108,9 +107,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
             while Post.objects.filter(slug=unique_slug).exists():
                 unique_slug = f"{base_slug}-{counter}"
                 counter += 1
-            
             form.instance.slug = unique_slug
-        
         return super().form_valid(form)
 
     def get_success_url(self):
