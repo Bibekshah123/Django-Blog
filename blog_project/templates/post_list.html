@@ -4,6 +4,14 @@
 {% block title %}All Blog{% endblock %}
 
 {% block content %}
+<div class="container mt-3 mb-3">
+    <div class="d-flex justify-content-end">
+        <form method="get" action="" class="form-inline">
+            <input type="text" name="q" placeholder="Search blogs..." class="form-control mr-2" value="{{ request.GET.q }}">
+            <button type="submit" class="btn btn-outline-success">Search</button>
+        </form>
+    </div>
+</div>
 <div class="container">
     {% for post in posts %}
         {% if forloop.first or forloop.counter0|divisibleby:3 %}
@@ -36,6 +44,24 @@
         {% if forloop.counter|divisibleby:3 or forloop.last %}
         </div>
         {% endif %}
-    {% endfor %}
-</div>
+        {% endfor %}
+        {% comment %} <!-- Pagination Controls -->
+<div class="pagination justify-content-center mt-4">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="?page=1" class="btn btn-outline-primary btn-sm">First</a>
+            <a href="?page={{ posts.previous_page_number }}" class="btn btn-outline-secondary btn-sm">Previous</a>
+        {% endif %}
+
+        <span class="btn btn-light btn-sm disabled">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}" class="btn btn-outline-secondary btn-sm">Next</a>
+            <a href="?page={{ posts.paginator.num_pages }}" class="btn btn-outline-primary btn-sm">Last</a>
+        {% endif %}
+    </span>
+</div> {% endcomment %}
+    </div>
 {% endblock %}

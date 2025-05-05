@@ -13,7 +13,7 @@ from django.urls import reverse_lazy
 from django.template.defaultfilters import slugify
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from django.db.models import Q
 
 class RegisterView(View):
     def get(self, request):
@@ -56,9 +56,17 @@ class LogoutView(View):
 class PostListView(ListView):
     model = Post
     template_name = 'post_list.html'
-    queryset = Post.objects.all()
     context_object_name = 'posts'
+    # paginate_by = 6
     
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(
+                Q(title__icontains=query) | Q(content__icontains=query)
+            )
+        return queryset
     
 class PostDetailView(DetailView):
     model = Post
