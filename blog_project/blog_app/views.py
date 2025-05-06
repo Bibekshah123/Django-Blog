@@ -14,6 +14,7 @@ from django.template.defaultfilters import slugify
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 class RegisterView(View):
     def get(self, request):
@@ -52,21 +53,23 @@ class LogoutView(View):
         return redirect('post_list')
 
 
-# Blog views
 class PostListView(ListView):
-    model = Post
-    template_name = 'post_list.html'
-    context_object_name = 'posts'
-    # paginate_by = 6
-    
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        query = self.request.GET.get('q')
+    def get(self, request):
+        post=Post.objects.all()
+        query = request.GET.get('q','')
         if query:
-            queryset = queryset.filter(
-                Q(title__icontains=query) | Q(content__icontains=query)
-            )
-        return queryset
+            post = Post.objects.filter(
+                Q(title__icontains=query) | Q(content__icontains=query))
+        else:
+            post=Post.objects.all()
+        paginator=Paginator(post,6)
+        page_num=request.GET.get("page")
+        posts=paginator.get_page(page_num)
+        total_pages=posts.paginator.num_pages
+        return render(request,'post_list.html',{'posts':posts, 'total_page':total_pages})
+
+
+        
     
 class PostDetailView(DetailView):
     model = Post
