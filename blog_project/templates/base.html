@@ -24,6 +24,9 @@
             <div class='' id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                    {% if user.is_authenticated %}
+                        <li class="nav-item ">
+                            <a class="nav-link text-light">Hello, {{user.username}}</a>
+                        </li>
                         <li class="nav-item"> 
                           <a class="nav-link" href="{% url 'post_create' %}">Create Blog</a>
                         </li>
@@ -35,7 +38,7 @@
                           <a class="nav-link text-primary " href="{% url 'login' %}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                            <a class="nav-link text-danger" href="{% url 'register' %}">Register</a>
                         </li>
                     {% endif %} 
                 </ul>

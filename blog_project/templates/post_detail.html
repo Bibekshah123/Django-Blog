@@ -44,10 +44,10 @@
             <p>
                     {% if comment.user %}
                         <strong>{{ comment.user.username }}</strong>
-                        <small> {{ comment.created_at|date:"M d, Y" }} </small>
+                        <small> ({{ comment.created_at|date:"M d, Y" }}) </small>
                     {% else %}
-                        Unknown
-                        <small> {{ comment.created_at|date:"M d, Y" }} </small>
+                        <strong>Unknown</strong>
+                        <small> ({{ comment.created_at|date:"M d, Y" }}) </small>
                     {% endif %}
                     : {{ comment.body }}
             </p>
