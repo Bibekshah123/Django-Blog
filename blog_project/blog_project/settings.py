@@ -42,8 +42,16 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'django.contrib.humanize',
+    'rest_framework',
+    'api',
 
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ]
+}
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
