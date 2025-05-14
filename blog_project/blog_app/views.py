@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Post, Comment, PostReaction
+from .models import Post, Comment
 from .forms import PostForm, CommentForm, UserRegisterForm, UserLoginForm
 from django.contrib.auth import login
 from django.contrib.auth import authenticate, login, logout

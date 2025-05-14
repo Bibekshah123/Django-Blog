@@ -34,18 +34,18 @@ class Post(models.Model):
     #     return self.reactions.filter(reaction='dislike').count()
 
 
-class PostReaction(models.Model):
-    REACTION_CHOICES = [
-        ('like', 'Like'),
-        ('dislike', 'Dislike'),
-    ]
-    post = models.ForeignKey(Post, related_name='reactions', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
-    session_key = models.CharField(max_length=40, null=True, blank=True)
-    reaction = models.CharField(max_length=10, choices=REACTION_CHOICES)
+# class PostReaction(models.Model):
+#     REACTION_CHOICES = [
+#         ('like', 'Like'),
+#         ('dislike', 'Dislike'),
+#     ]
+#     post = models.ForeignKey(Post, related_name='reactions', on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+#     session_key = models.CharField(max_length=40, null=True, blank=True)
+#     reaction = models.CharField(max_length=10, choices=REACTION_CHOICES)
 
-    class Meta:
-        unique_together = ('post', 'user', 'session_key')  # only one reaction per post
+#     class Meta:
+#         unique_together = ('post', 'user', 'session_key')  # only one reaction per post
     
 
     
