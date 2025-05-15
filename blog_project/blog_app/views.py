@@ -26,7 +26,7 @@ class RegisterView(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('post_list')
+            return redirect('login')
         return render(request, 'registration/register.html', {'form': form})
 
 
