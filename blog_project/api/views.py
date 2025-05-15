@@ -10,6 +10,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from .permissions import IsOwnerOrAdminOrReadOnly
 
 
 # Create your views here.
@@ -21,7 +22,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class BlogListView(APIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrAdminOrReadOnly]
+
 
     def get(self, request):
         blog = Post.objects.all()
@@ -31,7 +34,8 @@ class BlogListView(APIView):
 
 class BlogCreateView(APIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrAdminOrReadOnly]
 
     def post(self, request):
         serializer = BlogSerializer(data=request.data)
@@ -43,7 +47,9 @@ class BlogCreateView(APIView):
 
 class BlogDetailView(APIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrAdminOrReadOnly]
+
 
     def get(self, request, pk):
         blog = get_object_or_404(Post, pk=pk)
@@ -53,7 +59,8 @@ class BlogDetailView(APIView):
 
 class BlogUpdateView(APIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrAdminOrReadOnly]
 
     def put(self, request, pk):
         blog = get_object_or_404(Post, pk=pk)
@@ -66,7 +73,8 @@ class BlogUpdateView(APIView):
 
 class BlogDeleteView(APIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrAdminOrReadOnly]
 
     def delete(self, request, pk):
         blog = get_object_or_404(Post, pk=pk)
