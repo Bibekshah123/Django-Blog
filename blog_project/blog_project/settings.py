@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django.contrib.humanize',
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
     'api',
-    'djoser',
+    'rest_framework_simplejwt',
 
 ]
 
