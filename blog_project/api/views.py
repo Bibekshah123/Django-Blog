@@ -11,17 +11,26 @@ from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import generics
+
+
+
 # Create your views here.
 
 
 
-class BlogListCreateView(generics.ListAPIView, generics.CreateAPIView):
+class BlogListCreateApiView(generics.ListAPIView, generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = BlogSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     
-class BlogUpdateDeleteView(generics.UpdateAPIView, generics.DestroyAPIView):
+class BlogUpdateDeleteApiView(generics.UpdateAPIView, generics.DestroyAPIView, generics.RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = BlogSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+class BlogRetrieveApiView(generics.RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = BlogSerializer
     authentication_classes = [JWTAuthentication]
@@ -30,18 +39,12 @@ class BlogUpdateDeleteView(generics.UpdateAPIView, generics.DestroyAPIView):
     
 
 #comment api view
-class CommentListView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+class CommentListCreateApiView(generics.ListAPIView, generics.CreateAPIView):
     
     def get(self, request):
         comment = Comment.objects.all()
         serializer = BlogCommentSerializer(comment, many=True)
         return Response(serializer.data)
-    
-class CommentCreateView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
     
     def post(self, request):
         serializer = BlogCommentSerializer(data=request.data)
@@ -49,16 +52,8 @@ class CommentCreateView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-class CommentDetailList(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-    
-    def get(self, request, pk):
-        comment = get_object_or_404(Comment, pk=pk)
-        serializer = BlogCommentSerializer(comment)
-        return Response(serializer.data)
-    
+
+
 
         
 
