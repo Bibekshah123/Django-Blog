@@ -12,11 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import generics
 
-
-
 # Create your views here.
-
-
 
 class BlogListCreateApiView(generics.ListAPIView, generics.CreateAPIView):
     queryset = Post.objects.all()
@@ -39,19 +35,30 @@ class BlogRetrieveApiView(generics.RetrieveAPIView):
     
 
 #comment api view
-class CommentListCreateApiView(generics.ListAPIView, generics.CreateAPIView):
+class CommentListCreateApiView(generics.ListAPIView, generics.CreateAPIView,):
+    queryset = Comment.objects.all()
+    serializer_class = BlogCommentSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     
-    def get(self, request):
-        comment = Comment.objects.all()
-        serializer = BlogCommentSerializer(comment, many=True)
-        return Response(serializer.data)
+class CommentReadApiView(generics.RetrieveAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = BlogCommentSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     
-    def post(self, request):
-        serializer = BlogCommentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    # def get(self, request):
+    #     comment = Comment.objects.all()
+    #     serializer = BlogCommentSerializer(comment, many=True)
+    #     return Response(serializer.data)
+    
+    # def post(self, request):
+    #     serializer = BlogCommentSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
