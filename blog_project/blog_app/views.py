@@ -15,6 +15,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 class RegisterView(View):
     def get(self, request):
@@ -46,13 +48,13 @@ class LoginView(View):
                 return redirect('post_list')
         return render(request, 'registration/login.html', {'form': form})
     
-    
+
 class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('post_list')
 
-
+@method_decorator(cache_page(60 * 5), name='dispatch') #cache for 5 min
 class PostListView(ListView):
     def get(self, request):
         post=Post.objects.all()
@@ -70,7 +72,7 @@ class PostListView(ListView):
 
 
         
-    
+@method_decorator(cache_page(60 * 10), name='dispatch') #cache for 10 min 
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
