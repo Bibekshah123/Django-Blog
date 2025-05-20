@@ -35,7 +35,7 @@ class BlogRetrieveApiView(generics.RetrieveAPIView):
     
 
 #comment api view
-class CommentListCreateApiView(generics.ListAPIView, generics.CreateAPIView,):
+class CommentListCreateApiView(generics.ListAPIView, generics.CreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = BlogCommentSerializer
     authentication_classes = [JWTAuthentication]

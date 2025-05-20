@@ -11,13 +11,11 @@ class Command(BaseCommand):
         parser.add_argument('title', type=str)
         parser.add_argument('content', type=str)
         parser.add_argument('author_username', type=str)
-        parser.add_argument('--publish', action='store_true', help='Publish the post (optional)')
        
     def handle(self, *args, **options):
         title = options['title']
         content = options['content']    
         username = options['author_username']
-        publish = options['publish']
         
         try:
             author = User.objects.get(username=username)
@@ -28,7 +26,7 @@ class Command(BaseCommand):
         post = Post.objects.create(
             title=title,
             content = content,
-            author=author
+            author=author,
         )
         
         self.stdout.write(self.style.SUCCESS(f'Successfully created post: "{post.title}"'))

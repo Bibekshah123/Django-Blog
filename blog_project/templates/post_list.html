@@ -47,29 +47,7 @@
         {% endfor %}
     </div>
     <!-- Pagination Controls -->
-    
-    {% comment %} <div class="pagination justify-content-center mt-4">
-        {% for page_num in posts.paginator.num_pages %}
-        <span class="step-links">
-            {% if page_num.has_previous %}
-                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page=1" class="btn btn-outline-primary btn-sm">First</a>
-                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ posts.previous_page_number }}" class="btn btn-outline-secondary btn-sm">Previous</a>
-            {% endif %}
-            
-            {% comment %} <span class="btn btn-light btn-sm disabled">
-                Page {{ posts.number }} of {{ posts.paginator.num_pages }}
-            </span> {% if request.GET.q %}q={{ request.GET.q }}&{% endif %}
-            {% if page_num == posts.number %}
-            <a href="?page={{page_num}}" class="btn btn-outline-primary btn-sm">{{page_num}}</a>
-            {% endif %}
-    
-            {% if page_num.has_next %}
-                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ posts.next_page_number }}" class="btn btn-outline-secondary btn-sm">Next</a>
-                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ posts.paginator.num_pages }}" class="btn btn-outline-primary btn-sm">Last</a>
-            {% endif %}
-        </span>
-        {% endfor %}
-    </div> {% endcomment %}
+
     {% if posts.paginator.num_pages > 1 %}
     <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
     <ul class="pagination">
