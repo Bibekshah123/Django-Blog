@@ -59,7 +59,6 @@ A full-featured blog web application built with Django and Django REST Framework
 
 ---
 
----
 
 ## 🔧 Setup Instructions
 
@@ -83,11 +82,18 @@ A full-featured blog web application built with Django and Django REST Framework
    python manage.py createsuperuser
 6. Visit http://127.0.0.1:8000/ in your browser.
 
-   🛡 Permissions & Roles
+ ---
+
+
+🛡 Permissions & Roles
 Role	Access Level
 Admin	Full access to all features
 Staff	Can manage posts and comments
 Regular	Can view, comment, and create posts
+
+
+---
+
 
 📬 API Endpoints
 POST /api/token/ – Get JWT token
@@ -101,6 +107,9 @@ PUT /api/blogs/<id>/ – Update a blog
 DELETE /api/blogs/<id>/ – Delete a blog
 
 GET /api/users/ – List all users (admin only)
+
+---
+
 
 🙌 Contribution
 Pull requests and contributions are welcome. For major changes, open an issue first to discuss your ideas.
