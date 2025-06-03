@@ -86,10 +86,10 @@ A full-featured blog web application built with Django and Django REST Framework
 
 
 🛡 Permissions & Roles
-Role	Access Level
-Admin	Full access to all features
-Staff	Can manage posts and comments
-Regular	Can view, comment, and create posts
+- Role	Access Level
+- Admin	Full access to all features
+- Staff	Can manage posts and comments
+- Regular	Can view, comment, and create posts
 
 
 ---
