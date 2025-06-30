@@ -54,7 +54,7 @@ class LogoutView(View):
         logout(request)
         return redirect('post_list')
 
-@method_decorator(cache_page(60 * 5), name='dispatch') #cache for 5 min
+# @method_decorator(cache_page(60 * 5), name='dispatch') #cache for 5 min
 class PostListView(ListView):
     def get(self, request):
         post=Post.objects.all()
@@ -72,7 +72,7 @@ class PostListView(ListView):
 
 
         
-@method_decorator(cache_page(60 * 10), name='dispatch') #cache for 10 min 
+# @method_decorator(cache_page(60 * 10), name='dispatch') #cache for 10 min 
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
