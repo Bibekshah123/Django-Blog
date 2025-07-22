@@ -61,23 +61,26 @@ A fully functional Django-based Blog Web Application with role-based access cont
         cd django-blog-app
 
 2. **Create virtual environment and install dependencies:**
-```bash
-python -m venv venv
-source venv\Scripts\activate  
-pip install -r requirements.txt
+    ```bash
+        python -m venv venv
+        source venv\Scripts\activate  
+        pip install -r requirements.txt
 
 3. **Apply migrations:**
-```bash
-python manage.py migrate
+    ```bash
+        python manage.py migrate
 
 4. Create Superuser
-```bash
-python manage.py createsuperuser
+    ```bash
+    python manage.py createsuperuser
 
 5. Run Server
-```bash
-python manage.py runserver
+    ```bash
+    python manage.py runserver
 
+---
+
+## 🧪 API Endpoints
 
 | Method | Endpoint           | Description                 | Auth |
 | ------ | ------------------ | --------------------------- | ---- |
@@ -88,7 +91,9 @@ python manage.py runserver
 | DELETE | `/api/blogs/<id>/` | Delete a blog               | ✅    |
 | GET    | `/api/users/`      | List all users (admin only) | ✅    |
 
-💡 Highlights
+---
+
+## 💡 Highlights
 🎯 Role-Based Access Control
 
 🔐 JWT Authentication with Djoser
