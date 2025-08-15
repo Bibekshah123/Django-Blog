@@ -4,12 +4,45 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField(
-        widget=forms.EmailInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Enter your email'
+    username = forms.CharField(
+        label="Username",
+        widget=forms.TextInput(attrs={
+            'class': 'form-control form-control-lg',
+            'placeholder': 'Choose a username',
+            'autocomplete': 'off'
         })
     )
+
+    email = forms.EmailField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control form-control-lg',
+            'placeholder': 'Enter your email',
+            'autocomplete': 'email'
+        })
+    )
+
+    password1 = forms.CharField(
+        label="Password",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control form-control-lg',
+            'placeholder': 'Create a password',
+            'autocomplete': 'new-password'
+        })
+    )
+
+    password2 = forms.CharField(
+        label="Confirm Password",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control form-control-lg',
+            'placeholder': 'Confirm your password',
+            'autocomplete': 'new-password'
+        })
+    )
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
 
     class Meta:
         model = User
